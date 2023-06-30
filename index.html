@@ -240,7 +240,23 @@
 		}
 
 
-		//AVOID TO DELETE KEYWORD
+		//AVOID TO DELETE KEYWORD - REMOVE A PROPERTY BY USING REST OPERATOR-HARIKA BESTPRACTISE..TO REMOVE A PROPERTY FROM AN OBJECT
+
+		let employee7 = {
+			id:1,
+			name:"Adem",
+			surname:"Erbas",
+			age:36,
+			isMarried:true
+		}
+		console.log("employee7: ", employee7);
+
+
+		let {isMarried, ...newEmployee7} = employee7;
+
+		console.log("newEmployee7: ", newEmployee7);
+
+
 	</script>
 </body>
 </html>
