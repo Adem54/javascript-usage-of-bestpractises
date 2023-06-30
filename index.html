@@ -194,6 +194,7 @@
 
 		const newScores2 = [...scores2];
 		const newEmployee4 = {...employee4};
+		
 		newScores2[0] = 100;
 		console.log("newScores2: ", newScores2);
 		console.log("newEmployee4: ", newEmployee4);
@@ -240,7 +241,7 @@
 		}
 
 
-		//AVOID TO DELETE KEYWORD - REMOVE A PROPERTY BY USING REST OPERATOR-HARIKA BESTPRACTISE..TO REMOVE A PROPERTY FROM AN OBJECT
+		//8-AVOID TO DELETE KEYWORD - REMOVE A PROPERTY BY USING REST OPERATOR-HARIKA BESTPRACTISE..TO REMOVE A PROPERTY FROM AN OBJECT
 
 		let employee7 = {
 			id:1,
@@ -256,6 +257,15 @@
 
 		console.log("newEmployee7: ", newEmployee7);
 
+		//9-Use Array.isArray to determine the array
+		//Bazen bir yerden bekledigmz array datasi gelmeyebiliyor veya bazi istisna i durumlarda array bekliyoruz ama bazen object gelebiliyor boyle durumlarda harika ise yarayabiliyor...
+
+		let names = ["Jhon","David","Mark"];
+		console.log(Array.isArray(names));//true
+		/*The Array.isArray() method determines if the given argument is an 
+Array or not.
+• Returns true if the value is Array.
+• Returns false if the value is not Array*/
 
 	</script>
 </body>
