@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script>
+
+		//1-Check the property exist in an object
+		const employee = {
+			id:1,
+			name:"Jhon",
+			salary:5000
+		};
+
+		const isSalaryExist = "salary" in employee;
+
+		console.log("isSalaryExist: ", isSalaryExist);
+
+		const isGenderExist = "gender"  in employee;
+
+		console.log("isGenderExist: ", isGenderExist);
+
+		const isNameExist = "name" in employee;
+		console.log("isNameExist: ", isNameExist);
+
+		const isIdExist = employee.hasOwnProperty("id");
+		console.log("isIdExist: ", isIdExist);
+
+		//AYRICA HhasOwnProperty() method, Comparing with undefined
+
+		const hero2 = {
+		name: 'Batman'
+		};
+
+		console.log(hero2.hasOwnProperty('name'));     // => true
+		console.log(hero2.hasOwnProperty('realName')); // => false
+
+
+		const hero = {
+		name: 'Batman'
+		};
+
+		console.log(hero.name !== undefined);     // => true
+
+
+
+
+
+		//2.Conditionally add a property to an object-BESTPRACRTISE....
+
+		const includeSalary = true;
+
+		var my_employee1 = {
+			id:1,
+			name:"Jhon",
+		
+		};
+
+		if(includeSalary)
+		my_employee1.salary = 5000; //Bu bir yontem ama asagida daha iyi bir yontem ile yapabiliriz bu islemi
+
+
+		//BESTPRACTISE....
+		var my_employee2 = {
+			id:1,
+			name:"Jhon",
+
+			...(includeSalary && { salary:4000})
+		
+		};
+
+		console.log("my_employee1: ",my_employee1)
+		console.log("my_employee2: ",my_employee2)
+
+
+
+		//3-Use includes to check for multiple criteria
+
+		const isRGBColor = (color)=>{
+			if(color === "red" || color === "green" || color === "blue"){
+				return true
+			}
+
+			return false;
+		}
+
+		//YERINE ASAGIDAKI GIBI YAPALIM..CUNKU BU CONDITION LAR ORNEGIN YENI 3-4 TANE DAHA GELIRSE NASL BAS EDECEZ HEPSI ILE IF CONDITION LAR ICERISINDE - php deki in_array methodna karsilik geliyor...
+
+		const rgbColors = ["red", "green", "blue"];
+
+		const is_rgbColor = (color)=>
+		{
+			return rgbColors.includes(color);
+		}
+
+		/*
+			The includes() method determines whether an array 
+			includes a certain value among its entries. It returns 
+			true if a value exists, otherwise, it returns false.
+			Instead of extending the statement with more || (OR) 
+			conditions, rewrite the conditional by using the 
+			includes method.
+			More readable and concise alternative
+		*/
+
+		//4-BIR CONDITION YAPILIYOR VE NETICESI TRUE-FALSE DEGIL DE BU SEFER HER BIR CONDTITION IN KARSILIK GELDIGI BIR VALUE SI VAR ORNEGIN , YANI AYNI KEY-VALUE MANTIGI GIBI, BU BIZE NEYI CAGRISTIRIYOR HEMEN UZERINE DUSUNELIM
+
+		const getStatusText = (status)=>{
+			if(status === "FIRST")return "Hints0";
+			if(status === "SECOND")return "HintsR";
+			if(status === "THIRD")return "HintsA";
+			if(status === "FOURTH")return "Expired";
+			if(status === "FIFTH")return "Hints";
+		}
+
+	console.log("getStatusText: ",getStatusText("SECOND"));
+
+
+	//typescriptte enum ile yazilmasi beklenir
+	//	enum Status {	}
+
+	//Bunlar bize bir obje key-value kullanim mantigini animsatiyor degil mi
+//Hemen bir obje olusturururz o zaman
+	let statusObj = 
+	{
+		FIRST:"Hints0",
+		SECOND:"HintsR",
+		THIRD:"HintsA",
+		FOURTH:"Expired",
+		FIFTH:"Hints"
+	}
+
+	const getMyStatusText = status => {
+		return statusObj[status];
+	}
+		
+	console.log("getMyStatusText: ",getMyStatusText("SECOND"));
+
+
+		//5-REMOVE DUPLICATES FROM AN ARRAY USING SET
+
+		const numbers = [1,2,4,5,2,4,9,11,4,11];
+		const colors = ["red", "pink", "red", "blue", "black", "pink"];
+
+
+		const uniqNumbers = [...new Set(numbers)];
+		const uniqColors =  [...new Set(colors)];
+
+		console.log("uniqNumbers:", uniqNumbers);
+		console.log("uniqColors:", uniqColors);
+
+		/*
+		Set is a new data object introduced in ES6. The Set only 
+		lets you store unique values of any type. When you 
+		pass an array to a new Set(array), it will remove 
+		duplicate values.
+		The spread syntax (...) is used to include all the items 
+		of the Set to a new array
+		*/
+
+		//6-Use spread operator to shallow copy arrays and objects
+
+		const scores = [10,20,40,60];
+		const employee3 = {id:1, name:"John"};
+
+		//1.yontem... 
+
+		const newScores = [];
+		scores.forEach(score=>{
+			newScores.push(score);
+		})
+
+		console.log("newScores: ",newScores);
+
+		const newEmployee = {};
+
+		for (const [key,value] of Object.entries(employee3)) 
+		{
+			newEmployee[key] = value;	
+		}
+
+		console.log("newEmployee: ", newEmployee);
+
+		//2.yontem
+		var scores2 = [10,20,40,60];
+		console.log("scores2: ", scores2);
+
+		var employee4 = {id:1, name:"John"};
+		console.log("employee4: ",employee4);
+
+		const newScores2 = [...scores2];
+		const newEmployee4 = {...employee4};
+		newScores2[0] = 100;
+		console.log("newScores2: ", newScores2);
+		console.log("newEmployee4: ", newEmployee4);
+
+		//3.yontem- objeler icin ozellikle gecerli..OBJECT.ASSIGN
+		 const newEmployee5 = Object.assign({},employee4);
+
+		 newEmployee5["name"] = "JOHNATAN";
+		 console.log("newEmployee5: ", newEmployee5)
+
+
+		 //4.yontem..JSON-STRINGIFY
+		 let newScores3 = JSON.parse(JSON.stringify(scores));
+		 let newEmployee6 = JSON.parse(JSON.stringify(employee3));
+		 console.log("newEmployee6: ", newEmployee6)
+		 console.log("newScores3: ", newScores3)
+		 
+
+		//7-ITERATE OBJECTS 
+
+		const person = {
+			id:1,
+			name:"Adem",
+			surname:"Erbas",
+			age:36,
+			is_married:true
+		};
+
+		//-ASAGIDA 3 FARKLI SEKILDE OBJELERI ITERE EDEBILIYORUZ...HARIKA BESPTRACTISE....
+
+		for (const key in person) {
+			//console.log("key: ", key);
+			//console.log("value: ", person[key]);
+		}
+
+
+		for (const [key,value] of Object.entries(person)) {
+			//console.log(`key-value: ${key}  - ${value}`);
+		}
+
+
+		for (const key of Object.keys(person)) {
+			//console.log(`key-value: ${key}  - ${person[key]}`);
+		}
+
+
+		//AVOID TO DELETE KEYWORD
+	</script>
+</body>
+</html>
